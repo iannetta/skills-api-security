@@ -99,8 +99,8 @@ Mostre para a turma que **todos os endpoints estão documentados e disponíveis 
 
 ```python
 orders = {
-    100: {"owner": "luis", "value": 500},
-    101: {"owner": "maria", "value": 800}
+    100: {"owner": "iannetta", "value": 500},
+    101: {"owner": "luigi", "value": 800}
 }
 
 @app.get("/orders/{id}")
@@ -145,8 +145,8 @@ Relacionada ao OWASP **API3 — Broken Object Property Level Authorization / Exc
 ```python
 users = {
     1: {
-        "name": "Luis",
-        "email": "luis@email.com",
+        "name": "Luigi",
+        "email": "iannetta@email.com",
         "cpf": "12345678900",
         "salary": 15000,
         "internalScore": 900
