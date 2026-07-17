@@ -262,7 +262,7 @@ Após o hands-on, compartilhe o cheat sheet abaixo com o time.
 
 ---
 
-# Problemas comuns
+### Problemas comuns
 
 ## ERR_NGROK_4018
 
