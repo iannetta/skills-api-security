@@ -47,8 +47,27 @@ Tudo roda no Google Colab, sem instalação local.
 ### 1. Instalar dependências
 
 ```bash
-pip install fastapi uvicorn pyngrok
+pip install fastapi uvicorn pyngrok nest_asyncio
 ```
+## Criar conta no ngrok
+
+O ngrok atualmente exige autenticação, inclusive no plano gratuito.
+
+1.  Criar uma conta gratuita.
+2.  Copiar o **Authtoken**.
+3.  Configurar:
+
+``` python
+from pyngrok import ngrok
+
+ngrok.set_auth_token("SEU_AUTHTOKEN")
+```
+
+Caso contrário será exibido:
+
+    ERR_NGROK_4018
+    authentication failed
+
 
 ### 2. Subir uma API vulnerável
 
@@ -69,25 +88,37 @@ def root():
 ```python
 from pyngrok import ngrok
 import nest_asyncio
+import threading
 import uvicorn
 
 nest_asyncio.apply()
 
-public_url = ngrok.connect(8000)
-print("URL pública:", public_url)
+def run():
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
-uvicorn.run(app, host="0.0.0.0", port=8000)
+threading.Thread(target=run, daemon=True).start()
+
+public_url = ngrok.connect(8000)
+
+print(f"Swagger: {public_url}/docs")
 ```
 
 ### 4. Acessar o Swagger UI
 
-Abra a URL pública gerada pelo ngrok e acrescente `/docs` (Swagger UI do FastAPI) para explorar a documentação interativa:
+Abra a URL pública gerada pelo ngrok (Swagger UI do FastAPI) para explorar a documentação interativa:
 
-```
-https://<sua-url-ngrok>.ngrok-free.app/docs
-```
+### Primeiro acesso
 
-Mostre para a turma que **todos os endpoints estão documentados e disponíveis publicamente** — inclusive os que não deveriam ser expostos sem autenticação.
+Na primeira abertura da URL pública, o ngrok exibirá uma página de
+aviso.
+
+Clique em **Visit Site**.
+
+Depois disso, abra:
+
+    https://<URL_GERADA>/docs
+
+Será exibido o Swagger UI.
 
 ---
 
@@ -117,9 +148,7 @@ GET /orders/100
 GET /orders/101
 ```
 
-**Pergunta para a turma:** o que impede um usuário de acessar pedidos de outra pessoa?
-
-**Resposta:** nada. Basta trocar o número na URL.
+O que impede um usuário de acessar pedidos de outra pessoa?
 
 ### Correção
 
@@ -160,7 +189,7 @@ def profile():
 
 ### Pergunta
 
-O frontend precisa de tudo isso? **Normalmente não.**
+O frontend precisa de tudo isso? 
 
 ### Correção
 
@@ -232,6 +261,42 @@ Após o hands-on, compartilhe o cheat sheet abaixo com o time.
 - [ ] Os inputs são validados?
 
 ---
+
+# Problemas comuns
+
+## ERR_NGROK_4018
+
+**Causa**
+
+Authtoken não configurado.
+
+**Correção**
+
+``` python
+ngrok.set_auth_token("SEU_TOKEN")
+```
+
+------------------------------------------------------------------------
+
+## asyncio.run() cannot be called...
+
+**Causa**
+
+O Google Colab já possui um event loop em execução.
+
+**Correção**
+
+Executar o Uvicorn em uma thread.
+
+------------------------------------------------------------------------
+
+## Página de aviso do ngrok
+
+É esperado.
+
+Clique em **Visit Site**.
+
+------------------------------------------------------------------------
 
 ## Referências
 
