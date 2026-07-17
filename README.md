@@ -264,7 +264,7 @@ Após o hands-on, compartilhe o cheat sheet abaixo com o time.
 
 ### Problemas comuns
 
-## ERR_NGROK_4018
+### ERR_NGROK_4018
 
 **Causa**
 
@@ -278,7 +278,7 @@ ngrok.set_auth_token("SEU_TOKEN")
 
 ------------------------------------------------------------------------
 
-## asyncio.run() cannot be called...
+### asyncio.run() cannot be called...
 
 **Causa**
 
@@ -290,7 +290,7 @@ Executar o Uvicorn em uma thread.
 
 ------------------------------------------------------------------------
 
-## Página de aviso do ngrok
+### Página de aviso do ngrok
 
 É esperado.
 
