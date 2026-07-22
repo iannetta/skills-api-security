@@ -154,7 +154,7 @@ O que impede um usuário de acessar pedidos de outra pessoa?
 
 ```python
 @app.get("/orders/{id}")
-def get_order(id: int, current_user="luis"):
+def get_order(id: int, current_user="luigi"):
     order = orders[id]
     if order["owner"] != current_user:
         raise HTTPException(status_code=403)
