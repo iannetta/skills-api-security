@@ -130,8 +130,8 @@ Será exibido o Swagger UI.
 
 ```python
 orders = {
-    100: {"owner": "iannetta", "value": 500},
-    101: {"owner": "luigi", "value": 800}
+    100: {"owner": "doe", "value": 500},
+    101: {"owner": "john", "value": 800}
 }
 
 @app.get("/orders/{id}")
@@ -154,7 +154,7 @@ O que impede um usuário de acessar pedidos de outra pessoa?
 
 ```python
 @app.get("/orders/{id}")
-def get_order(id: int, current_user="luigi"):
+def get_order(id: int, current_user="john"):
     order = orders[id]
     if order["owner"] != current_user:
         raise HTTPException(status_code=403)
@@ -174,8 +174,8 @@ Relacionada ao OWASP **API3 — Broken Object Property Level Authorization / Exc
 ```python
 users = {
     1: {
-        "name": "Luigi",
-        "email": "iannetta@email.com",
+        "name": "john",
+        "email": "john.doe@email.com",
         "cpf": "12345678900",
         "salary": 15000,
         "internalScore": 900
